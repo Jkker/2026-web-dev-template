@@ -91,10 +91,17 @@ Add components via CLI to `src/components/ui/`:
 pnpx shadcn add button dialog
 ```
 
-### Forms
+### Environment Variables
 
-- Library: React Hook Form
-- Validation: Arktype
+- Use ArkEnv for type-safe env var parsing; schema defined in `vite.config.ts`
+- Access: `import.meta.env.VITE_API_URL`
+- Never commit secrets, API keys, or credentials
+
+### Validation
+
+- Use ArkRegex for type-safe regular expressions
+- Validate all user input with Arktype
+- React Hook Form Resolver with Arktype
 
 ## Testing (Vitest)
 
@@ -186,12 +193,6 @@ export const Primary = meta.story({
 - Focus: Explain _why_ and _how_, not _what_
 - Tags: `@remarks`, `@example`, `@see`
 - Never restate types in comments
-
-## Security
-
-- Never commit secrets, API keys, or credentials
-- Use environment variables for sensitive data
-- Validate all user input with Arktype schemas
 
 ## Workflow
 

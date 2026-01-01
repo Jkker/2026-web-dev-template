@@ -73,6 +73,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { hexColorRegex, phoneRegex, usernameRegex } from '@/lib/regex'
 
 const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'] as const
 
@@ -90,6 +91,44 @@ export function FormExample() {
     push: true,
   })
   const [theme, setTheme] = useState('light')
+  const [username, setUsername] = useState('')
+  const [phone, setPhone] = useState('')
+  const [themeColor, setThemeColor] = useState('#6366f1')
+  const [errors, setErrors] = useState({
+    username: '',
+    phone: '',
+    themeColor: '',
+  })
+
+  const validateField = (field: string, value: string) => {
+    if (!value) {
+      setErrors((prev) => ({ ...prev, [field]: '' }))
+      return
+    }
+
+    switch (field) {
+      case 'username':
+        setErrors((prev) => ({
+          ...prev,
+          username: usernameRegex.test(value)
+            ? ''
+            : 'Username must be 3-20 characters (letters, numbers, underscores only)',
+        }))
+        break
+      case 'phone':
+        setErrors((prev) => ({
+          ...prev,
+          phone: phoneRegex.test(value) ? '' : 'Invalid phone number format',
+        }))
+        break
+      case 'themeColor':
+        setErrors((prev) => ({
+          ...prev,
+          themeColor: hexColorRegex.test(value) ? '' : 'Invalid hex color (e.g., #6366f1 or #63f)',
+        }))
+        break
+    }
+  }
 
   return (
     <Card>
@@ -355,6 +394,58 @@ export function FormExample() {
                 </Select>
               </Field>
             </div>
+            <Field>
+              <FieldLabel htmlFor="small-form-username">Username</FieldLabel>
+              <Input
+                id="small-form-username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value)
+                  validateField('username', e.target.value)
+                }}
+                placeholder="john_doe123"
+                className={errors.username ? 'border-destructive' : ''}
+              />
+              {errors.username && (
+                <p className="text-destructive text-xs mt-1">{errors.username}</p>
+              )}
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="small-form-phone">Phone Number</FieldLabel>
+              <Input
+                id="small-form-phone"
+                value={phone}
+                onChange={(e) => {
+                  setPhone(e.target.value)
+                  validateField('phone', e.target.value)
+                }}
+                placeholder="+1234567890"
+                className={errors.phone ? 'border-destructive' : ''}
+              />
+              {errors.phone && <p className="text-destructive text-xs mt-1">{errors.phone}</p>}
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="small-form-theme-color">Theme Color</FieldLabel>
+              <div className="flex gap-2">
+                <Input
+                  id="small-form-theme-color"
+                  value={themeColor}
+                  onChange={(e) => {
+                    setThemeColor(e.target.value)
+                    validateField('themeColor', e.target.value)
+                  }}
+                  placeholder="#6366f1"
+                  className={errors.themeColor ? 'border-destructive' : ''}
+                />
+                <div
+                  className="w-10 h-10 rounded-md border"
+                  style={{ backgroundColor: themeColor }}
+                />
+              </div>
+              {errors.themeColor && (
+                <p className="text-destructive text-xs mt-1">{errors.themeColor}</p>
+              )}
+            </Field>
             <Field>
               <FieldLabel htmlFor="small-form-framework">Framework</FieldLabel>
               <Combobox items={frameworks}>

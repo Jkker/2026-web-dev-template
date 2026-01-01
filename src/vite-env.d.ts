@@ -14,9 +14,13 @@ interface ViteTypeOptions {
   strictImportMetaEnv: unknown
 }
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}
+// https://arkenv.js.org/docs/vite-plugin/arkenv-in-viteconfig
+type ImportMetaEnvAugmented = import('@arkenv/vite-plugin').ImportMetaEnvAugmented<
+  typeof import('../vite.config').Env
+>
+// Augment import.meta.env with your schema
+// Only `VITE_*` prefixed variables will be included
+interface ImportMetaEnv extends ImportMetaEnvAugmented {}
 
 declare module 'csstype' {
   interface Properties {

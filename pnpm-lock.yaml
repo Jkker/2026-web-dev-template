@@ -29,6 +29,12 @@ importers:
       '@tanstack/react-router-devtools':
         specifier: ^1.144.0
         version: 1.144.0(@tanstack/react-router@1.144.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.144.0)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(solid-js@1.9.10)
+      arkenv:
+        specifier: ^0.8.1
+        version: 0.8.1(arktype@2.1.29)
+      arkregex:
+        specifier: ^0.0.5
+        version: 0.0.5
       arktype:
         specifier: ^2.1.29
         version: 2.1.29
@@ -87,6 +93,9 @@ importers:
         specifier: ^5.0.9
         version: 5.0.9(@types/react@19.2.7)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))
     devDependencies:
+      '@arkenv/vite-plugin':
+        specifier: ^0.0.24
+        version: 0.0.24(arktype@2.1.29)(vite@8.0.0-beta.5(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
       '@commitlint/cli':
         specifier: ^20.2.0
         version: 20.2.0(@types/node@24.10.4)(typescript@5.9.3)
@@ -216,6 +225,12 @@ packages:
 
   '@ark/util@0.56.0':
     resolution: {integrity: sha512-BghfRC8b9pNs3vBoDJhcta0/c1J1rsoS1+HgVUreMFPdhz/CRAKReAu57YEllNaSy98rWAdY1gE+gFup7OXpgA==}
+
+  '@arkenv/vite-plugin@0.0.24':
+    resolution: {integrity: sha512-n2rQ2YJybJG/xaIn+D3eldLMUwvDai1KDsjDIEImwAQiHgn5AZCsPi65DWhoioOtZ6T2mmfk6xGj/guhStJ1nQ==}
+    peerDependencies:
+      arktype: ^2.1.22
+      vite: 8.0.0-beta.5
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -1947,6 +1962,11 @@ packages:
   aria-query@5.3.2:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
     engines: {node: '>= 0.4'}
+
+  arkenv@0.8.1:
+    resolution: {integrity: sha512-6aGadHN2nuWuRNWcmNc/CfdlUak6jeZi/WBLLWN/LvBFY8aR+FSMJE6x9SUS9L1m+qp94MTVyKpi3tDzo+SoJw==}
+    peerDependencies:
+      arktype: ^2.1.22
 
   arkregex@0.0.5:
     resolution: {integrity: sha512-ncYjBdLlh5/QnVsAA8De16Tc9EqmYM7y/WU9j+236KcyYNUXogpz3sC4ATIZYzzLxwI+0sEOaQLEmLmRleaEXw==}
@@ -4139,6 +4159,12 @@ snapshots:
 
   '@ark/util@0.56.0': {}
 
+  '@arkenv/vite-plugin@0.0.24(arktype@2.1.29)(vite@8.0.0-beta.5(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))':
+    dependencies:
+      arkenv: 0.8.1(arktype@2.1.29)
+      arktype: 2.1.29
+      vite: 8.0.0-beta.5(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)
+
   '@babel/code-frame@7.27.1':
     dependencies:
       '@babel/helper-validator-identifier': 7.28.5
@@ -5887,6 +5913,10 @@ snapshots:
       dequal: 2.0.3
 
   aria-query@5.3.2: {}
+
+  arkenv@0.8.1(arktype@2.1.29):
+    dependencies:
+      arktype: 2.1.29
 
   arkregex@0.0.5:
     dependencies:

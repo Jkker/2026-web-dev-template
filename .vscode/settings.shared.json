@@ -21,7 +21,7 @@
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "cSpell.enabled": true,
-  "cSpell.words": ["arktype", "commitlint", "oxfmt", "oxlint", "tsgo"],
+  "cSpell.words": ["arktype", "arkenv", "arkregex", "commitlint", "oxfmt", "oxlint", "tsgo"],
   "editor.codeActionsOnSave": {
     "source.addMissingImports.ts": "explicit",
     "source.fixAll.oxc": "explicit",

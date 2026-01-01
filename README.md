@@ -22,7 +22,8 @@ pnpm install
 | **State**      | TanStack Query + Zustand | v5 + v5       |
 | **Styling**    | Tailwind CSS             | v4            |
 | **UI**         | Shadcn + Base UI         | v3            |
-| **Validation** | Arktype                  | v2            |
+| **Validation** | Arktype + ArkRegex       | v2            |
+| **Env Vars**   | ArkEnv                   | v0.8          |
 | **Testing**    | Vitest + Playwright      | v3            |
 | **Tooling**    | Oxlint + Oxfmt + Knip    | Latest        |
 

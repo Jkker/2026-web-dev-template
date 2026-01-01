@@ -22,6 +22,8 @@
     "@tanstack/react-query": "^5.90.16",
     "@tanstack/react-router": "^1.144.0",
     "@tanstack/react-router-devtools": "^1.144.0",
+    "arkenv": "^0.8.1",
+    "arkregex": "^0.0.5",
     "arktype": "^2.1.29",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -43,6 +45,7 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@arkenv/vite-plugin": "^0.0.24",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@playwright/mcp": "^0.0.54",
@@ -93,6 +96,11 @@
     ],
     "*.{json,md,css,html,yml,yaml}": [
       "oxfmt --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
     ]
   },
   "packageManager": "pnpm@10.26.2"

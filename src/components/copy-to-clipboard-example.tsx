@@ -15,6 +15,27 @@ export function CopyToClipboardExample({
       value: 'pnpm install @your-org/your-package',
       icon: TerminalIcon,
     },
+    {
+      id: 'username-validation',
+      label: 'Username Validation',
+      description: 'Regex pattern for username validation',
+      value: '^[a-zA-Z0-9_]{3,20}$',
+      icon: TerminalIcon,
+    },
+    {
+      id: 'phone-validation',
+      label: 'Phone Validation',
+      description: 'Regex pattern for phone number validation',
+      value: '^\\+?[1-9]\\d{1,14}$',
+      icon: TerminalIcon,
+    },
+    {
+      id: 'hex-color-validation',
+      label: 'Hex Color Validation',
+      description: 'Regex pattern for hex color validation',
+      value: '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$',
+      icon: TerminalIcon,
+    },
   ],
 }) {
   const { copy, isCopied } = useCopyToClipboard()
