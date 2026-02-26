@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { toast } from 'sonner'
+
+import { toast } from '@/components/ui/toast'
 
 export function useCopyToClipboard() {
   const [text, setText] = useState<string>()

@@ -9,9 +9,9 @@ import {
   ZapIcon,
 } from 'lucide-react'
 
-import { CopyToClipboardExample } from '@/components/copy-to-clipboard-example'
-import { FormExample } from '@/components/form-example'
-import { TaskListExample } from '@/components/task-list-example'
+import { CopyToClipboardExample } from '@/components/examples/copy-to-clipboard-example'
+import { FormExample } from '@/components/examples/form-example'
+import { TaskListExample } from '@/components/examples/task-list-example'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -57,10 +57,10 @@ export const Route = createFileRoute('/')({
     const duration = Temporal.Duration.from({ hours: 2, minutes: 30, seconds: 45 })
 
     return (
-      <article className="container mx-auto p-6 space-y-8">
+      <article className="container mx-auto space-y-8 p-6">
         <header>
-          <h1 className="text-4xl font-bold mb-2">Examples</h1>
-          <p className="text-muted-foreground text-lg">
+          <h1 className="mb-2 text-4xl font-bold">Examples</h1>
+          <p className="text-lg text-muted-foreground">
             Demonstrations of temporal-polyfill, Drawer component, and Zustand state management
           </p>
         </header>
@@ -77,11 +77,11 @@ export const Route = createFileRoute('/')({
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <h3 className="font-semibold flex items-center gap-2">
+                <h3 className="flex items-center gap-2 font-semibold">
                   <ClockIcon className="h-4 w-4" />
                   Date/Time Formatting
                 </h3>
-                <div className="space-y-1 text-sm pl-6">
+                <div className="space-y-1 pl-6 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Full format:</span>
                     <span className="font-mono">{formatDateTime(now, 'full')}</span>
@@ -98,11 +98,11 @@ export const Route = createFileRoute('/')({
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-semibold flex items-center gap-2">
+                <h3 className="flex items-center gap-2 font-semibold">
                   <ZapIcon className="h-4 w-4" />
                   Relative Time
                 </h3>
-                <div className="space-y-1 text-sm pl-6">
+                <div className="space-y-1 pl-6 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">5 days from now:</span>
                     <span className="font-mono">{formatRelativeTime(futureDate)}</span>
@@ -115,11 +115,11 @@ export const Route = createFileRoute('/')({
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-semibold flex items-center gap-2">
+                <h3 className="flex items-center gap-2 font-semibold">
                   <TimerIcon className="h-4 w-4" />
                   Duration & Time Helpers
                 </h3>
-                <div className="space-y-1 text-sm pl-6">
+                <div className="space-y-1 pl-6 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Duration (2h 30m 45s):</span>
                     <span className="font-mono">{formatDuration(duration)}</span>
@@ -141,7 +141,7 @@ export const Route = createFileRoute('/')({
 
               <div className="space-y-2">
                 <h3 className="font-semibold">Number & Currency Formatting</h3>
-                <div className="space-y-1 text-sm pl-6">
+                <div className="space-y-1 pl-6 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Currency ($1,234.56):</span>
                     <span className="font-mono">{formatCurrency(1234.56)}</span>
@@ -164,21 +164,21 @@ export const Route = createFileRoute('/')({
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-2">Zustand State Management</h3>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                <h3 className="mb-2 font-semibold">Zustand State Management</h3>
+                <ul className="list-inside list-disc space-y-1 text-muted-foreground">
                   <li>Strict TypeScript interfaces for type safety</li>
                   <li>External mutations declared outside store</li>
                   <li>
                     Sparse updates with{' '}
-                    <code className="font-mono text-xs bg-muted px-1 rounded">setState()</code>
+                    <code className="rounded bg-muted px-1 font-mono text-xs">setState()</code>
                   </li>
                   <li>Computed selectors for derived state</li>
                   <li>Arktype runtime validation for inputs</li>
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Drawer Component (Vaul)</h3>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                <h3 className="mb-2 font-semibold">Drawer Component (Vaul)</h3>
+                <ul className="list-inside list-disc space-y-1 text-muted-foreground">
                   <li>Sheet-style drawer for mobile-first design</li>
                   <li>Controlled open/close state</li>
                   <li>Smooth animations with Tailwind</li>
@@ -186,8 +186,8 @@ export const Route = createFileRoute('/')({
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Temporal Polyfill</h3>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                <h3 className="mb-2 font-semibold">Temporal Polyfill</h3>
+                <ul className="list-inside list-disc space-y-1 text-muted-foreground">
                   <li>Temporal API for modern date/time handling</li>
                   <li>Intl.DateTimeFormat for localized formatting</li>
                   <li>Intl.RelativeTimeFormat for human-readable times</li>
@@ -195,14 +195,14 @@ export const Route = createFileRoute('/')({
                   <li>Intl.NumberFormat for numbers and currency</li>
                   <li>
                     Immutable operations with{' '}
-                    <code className="font-mono text-xs bg-muted px-1 rounded">Temporal</code> types
+                    <code className="rounded bg-muted px-1 font-mono text-xs">Temporal</code> types
                   </li>
                 </ul>
               </div>
             </CardContent>
           </Card>
           <Card>
-            <div className="bg-primary absolute inset-0 z-30 aspect-video opacity-50 mix-blend-color" />
+            <div className="absolute inset-0 z-30 aspect-video bg-primary opacity-50 mix-blend-color" />
             <img
               src="https://images.unsplash.com/photo-1604076850742-4c7221f3101b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Photo by mymind on Unsplash"

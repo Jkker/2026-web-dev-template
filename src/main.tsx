@@ -1,11 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { Toaster } from '@/components/ui/sonner'
-import { ThemeProvider } from '@/components/ui/theme-provider'
+import { ThemeProvider } from '@/contexts/theme'
 import { ReactI18nextProvider } from '@/lib/i18next'
 import { TanstackQueryProvider } from '@/lib/tanstack-query'
 import { TanstackRouterProvider } from '@/lib/tanstack-router'
+
+import { ToastProvider } from './components/ui/toast'
+import { TanStackDevtools } from './lib/tanstack-devtools'
 
 import './index.css'
 
@@ -17,8 +19,10 @@ createRoot(rootElement).render(
     <ReactI18nextProvider>
       <TanstackQueryProvider>
         <ThemeProvider>
-          <TanstackRouterProvider />
-          <Toaster />
+          <ToastProvider>
+            <TanstackRouterProvider />
+            <TanStackDevtools />
+          </ToastProvider>
         </ThemeProvider>
       </TanstackQueryProvider>
     </ReactI18nextProvider>

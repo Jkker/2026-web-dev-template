@@ -3,65 +3,6 @@ import 'temporal-polyfill/global'
 // Currently missing from typescript library types for Intl.DurationFormat
 // See https://github.com/microsoft/TypeScript/issues/60608
 
-declare global {
-  namespace Intl {
-    type DurationFormatOptions = {
-      localeMatcher?: 'best fit' | 'lookup'
-      style?: 'long' | 'short' | 'narrow' | 'digital'
-      years?: 'long' | 'short' | 'narrow'
-      yearsDisplay?: 'always' | 'auto'
-      months?: 'long' | 'short' | 'narrow'
-      monthsDisplay?: 'always' | 'auto'
-      weeks?: 'long' | 'short' | 'narrow'
-      weeksDisplay?: 'always' | 'auto'
-      days?: 'long' | 'short' | 'narrow'
-      daysDisplay?: 'always' | 'auto'
-      hours?: 'long' | 'short' | 'narrow' | 'numeric' | '2-digit'
-      hoursDisplay?: 'always' | 'auto'
-      minutes?: 'long' | 'short' | 'narrow' | 'numeric' | '2-digit'
-      minutesDisplay?: 'always' | 'auto'
-      seconds?: 'long' | 'short' | 'narrow' | 'numeric' | '2-digit'
-      secondsDisplay?: 'always' | 'auto'
-      milliseconds?: 'long' | 'short' | 'narrow' | 'numeric'
-      millisecondsDisplay?: 'always' | 'auto'
-      microseconds?: 'long' | 'short' | 'narrow' | 'numeric'
-      microsecondsDisplay?: 'always' | 'auto'
-      nanoseconds?: 'long' | 'short' | 'narrow' | 'numeric'
-      nanosecondsDisplay?: 'always' | 'auto'
-      fractionalDigits?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-      numberingSystem?: string
-      round?: boolean
-    }
-
-    type DurationInput = {
-      years?: number
-      months?: number
-      weeks?: number
-      days?: number
-      hours?: number
-      minutes?: number
-      seconds?: number
-      milliseconds?: number
-      microseconds?: number
-      nanoseconds?: number
-    }
-
-    interface DurationFormat {
-      resolvedOptions(): Intl.DurationFormatOptions
-      formatToParts(duration: DurationInput): { unit?: string; type: unknown; value: string }[]
-      format(duration: DurationInput): string
-    }
-
-    const DurationFormat: {
-      new (locales?: string | string[], options?: Intl.DurationFormatOptions): Intl.DurationFormat
-      supportedLocalesOf(
-        locales: string | string[],
-        options?: Pick<Intl.DurationFormatOptions, 'localeMatcher'>,
-      ): string[]
-    }
-  }
-}
-
 const dateTimeFormats = {
   full: {
     dateStyle: 'full',

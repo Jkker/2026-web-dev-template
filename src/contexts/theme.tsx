@@ -1,16 +1,29 @@
-'use client'
-
-import { type } from 'arktype'
-import { useEffect, useState } from 'react'
+// eslint-disable react/only-export-components -- context files export hooks alongside providers
+import { useState, useEffect } from 'react'
 
 import { useMediaQuery } from '@/hooks/use-media-query'
-import { ThemeProviderContext, Theme } from '@/hooks/use-theme'
+import { createContext } from '@/lib/context'
+export type Theme = 'dark' | 'light' | 'system'
+
+export const [useTheme, ThemeContext] = createContext<{
+  theme: Theme
+  resolvedTheme: Exclude<Theme, 'system'>
+  setTheme: (theme: Theme) => void
+}>({
+  name: 'Theme',
+  defaultValue: {
+    theme: 'system',
+    resolvedTheme: 'light',
+    setTheme: () => null,
+  },
+})
 
 export interface ThemeProviderProps {
   children: React.ReactNode
-  defaultTheme?: typeof Theme.infer
+  defaultTheme?: Theme
   storageKey?: string
 }
+
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
@@ -18,12 +31,9 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') return defaultTheme
-    const result = Theme(localStorage.getItem(storageKey))
-    return result instanceof type.errors ? defaultTheme : result
-  })
+  const [theme, setTheme] = useState<Theme>(
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
+  )
 
   useEffect(() => {
     const root = window.document.documentElement
@@ -38,7 +48,7 @@ export function ThemeProvider({
   }, [theme, isDarkMode])
 
   return (
-    <ThemeProviderContext
+    <ThemeContext
       {...props}
       value={{
         theme,
@@ -50,6 +60,6 @@ export function ThemeProvider({
       }}
     >
       {children}
-    </ThemeProviderContext>
+    </ThemeContext>
   )
 }

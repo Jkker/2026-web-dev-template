@@ -1,4 +1,4 @@
-import { CreditCardIcon, LogOutIcon, BellIcon, BadgeCheckIcon } from 'lucide-react'
+import { CreditCardIcon, LogOutIcon, BellIcon, BadgeCheckIcon, UserIcon } from 'lucide-react'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -16,9 +16,11 @@ export function AppUserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <Button variant="ghost" size="icon" className="rounded-full">
+          <Button size="icon" className="rounded-full" title="User menu">
             <Avatar>
-              <AvatarFallback>JK</AvatarFallback>
+              <AvatarFallback>
+                <UserIcon />
+              </AvatarFallback>
             </Avatar>
           </Button>
         }

@@ -1,5 +1,4 @@
-import type { StaticDataRouteOption, AnyRouter } from '@tanstack/react-router'
-
+import type { StaticDataRouteOption } from '@tanstack/react-router'
 import { Link, useRouter } from '@tanstack/react-router'
 import { GalleryVerticalEnd } from 'lucide-react'
 import * as React from 'react'
@@ -34,7 +33,7 @@ interface RouteNode {
 }
 
 export function AppSidebar({ maxDepth = 3, ...props }: AppSidebarProps) {
-  const router = useRouter<AnyRouter>()
+  const router = useRouter()
   const { t } = useTranslation('routes')
 
   const renderRoute = ({ options: { staticData }, id, to, children }: RouteNode, depth = 0) => {
@@ -48,7 +47,7 @@ export function AppSidebar({ maxDepth = 3, ...props }: AppSidebarProps) {
         <Link
           to={to}
           className={cn(
-            'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4 flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0',
+            'flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-sidebar-foreground ring-sidebar-ring outline-hidden group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[size=md]:text-sm data-[size=sm]:text-xs data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground',
           )}
         >
           {Icon && <Icon className="size-4" />}
@@ -70,7 +69,7 @@ export function AppSidebar({ maxDepth = 3, ...props }: AppSidebarProps) {
               size="lg"
               render={
                 <a href="#">
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                     <GalleryVerticalEnd className="size-4" />
                   </div>
                   <div className="flex flex-col gap-0.5 leading-none">
@@ -85,7 +84,9 @@ export function AppSidebar({ maxDepth = 3, ...props }: AppSidebarProps) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarMenu className="gap-2">{router.routeTree.children?.map(renderRoute)}</SidebarMenu>
+          <SidebarMenu className="gap-2">
+            {(router.routeTree.children as RouteNode[])?.map(renderRoute)}
+          </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

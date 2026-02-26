@@ -1,237 +1,143 @@
 # Instructions
 
-- Be concise: sacrifice grammar for brevity if needed
-- DRY: No code duplication; extract shared logic into utilities or hooks
-- Ensure strong type-safety; treat warnings as errors
+This is a modern web app built with React 19
 
-## Tools
+## General Guidelines
 
-- **pnpm**: Manage JS packages
-- **mise**: Manage runtime & tools
-- **Context7 MCP**: Lookup up-to-date docs
-- **Playwright MCP**: Verify features manually
+- Conciseness: Be extremely concise. Sacrifice grammar for brevity if needed.
+- File Structure: Routes in `src/routes/`, components in `src/components/`, utilities in `src/utils/`.
+- Imports: Use import aliases defined in package.json (`@/components/*`, `@/utils/*`, etc.).
 
-## File Structure
+## MCP Tools
 
-| Directory            | Purpose                                   |
-| -------------------- | ----------------------------------------- |
-| `src/routes/`        | TanStack Router route files               |
-| `src/components/`    | React components                          |
-| `src/components/ui/` | Shadcn UI components                      |
-| `src/hooks/`         | Custom hooks                              |
-| `src/lib/`           | Utility functions & library configuration |
-| `public/locales/`    | i18n translation resources                |
-| `stories/`           | Storybook stories                         |
+- Context7: Use for up-to-date documentation lookups. Query before implementing unfamiliar APIs.
+  Library IDs (Use These Exact IDs)
+  - `/tanstack/router`
+  - `/tanstack/query`
+  - `/tanstack/form`
+  - `/websites/ui_shadcn`
+  - `/arktypeio/arktype`
+- Playwright: Use for browser automation, E2E testing, and visual testing.
 
-## Standards
+## Development Standards
 
-### React
+- DRY: No code duplication. Extract shared logic.
 
-- Rely on the React Compiler; manual memoization (`useMemo`, `useCallback`, `React.memo`) prohibited unless necessary
-- Functional components only; no `React.FC`
-- Use named imports: `import { useState } from 'react'`
-- Never derive state in `useEffect`; compute during render
+React 19 & React Compiler
 
-### Routing (TanStack Router)
+- Rely on the React Compiler; manual memoization via `useMemo`, `useCallback`, or `React.memo` prohibited unless necessary.
+- Components: Functional components only. No `React.FC`.
+- Hooks: Use named imports (`import { useState } from 'react'`).
+- Use `pnpx shadcn` to add new components from shadcn/ui.
+- Never derive state in `useEffect`; compute directly during render.
 
-- File-based routing in `src/routes/`. Vite automatically generates routes with `createFileRoute()`.
-- Navigation: Use `<Link>` component with `preload="intent"`
-- Type-safe params: Use `useParams` hook
+Routing (TanStack Router)
 
-### Data Fetching (TanStack Query)
+- File-Based: Routes live in `src/routes/`.
+- Definition: Use `createFileRoute`.
+- Navigation: Use `<Link>` component and type-safe `useParams`.
+- Loaders: Use route loaders for data preloading.
 
-- Server state: Use `useQuery` / `useMutation`
-- Never fetch data in `useEffect`
+Data Fetching (TanStack Query)
 
-### State Management (Zustand)
+- Server State: Use `useQuery` / `useMutation`.
+- No useEffect: Do NOT fetch data in `useEffect`.
 
-- Define stores with strict interfaces
-- Declare store mutations outside of the store
-- Call `store.setState()` for sparse updates
+State Management (Zustand)
 
-### Internationalization
+- Define stores with strict interfaces.
+- Declare store mutations outside of the store. Call store.setState() if only used sparingly.
 
-```tsx
-import { useTranslation } from 'react-i18next'
+Styling (Tailwind CSS 4)
 
-function MyComponent() {
-  const { t, i18n } = useTranslation('namespace')
-  return <h1>{t('key')}</h1>
-}
-```
+- Engine: Tailwind CSS 4 (CSS-first configuration).
+- Usage: Utility classes in JSX.
+- Conditional: Use `cn()` utility (clsx + tailwind-merge).
+- Variants: Use `cva` (Class Variance Authority) for component variants.
+- Icons: Lucide
 
-- Translation files: `public/locales/{lng}/{namespace}.json`
-- Namespaces: `translation`, `routes`, etc.
-- Numbers/Currency: Use `Intl.NumberFormat`
-- Datetime: Use `Temporal` API with `Intl.DateTimeFormat`, `Intl.RelativeTimeFormat`, `Intl.DurationFormat`. Never use `Date`, `date-fns`, `dayjs`, `moment`, etc.
+Forms
 
-```tsx
-import { Temporal } from 'temporal-polyfill'
+- Library: Tanstack Form.
+- Validation: Arktype
 
-const dt = Temporal.PlainDateTime.from('2024-01-01T12:00:00')
-const formatted = new Intl.DateTimeFormat('en-US', {
-  dateStyle: 'long',
-  timeStyle: 'short',
-}).format(dt.toZonedDateTime('America/New_York'))
-```
+Testing (Vitest)
 
-### Styling (Tailwind CSS 4)
+- Use `vitest-browser-react` and `vitest` browser locators for UI testing.
+- Use `toMatchInlineSnapshot()` for snapshot testing.
+- Write tests for all new features and bug fixes.
+- Run tests before committing: `pnpm test`.
+- E2E tests: Use Playwright for critical user flows.
 
-- Conditional: Use `cn()` utility (clsx + tailwind-merge)
-- Variants: Use `cva` (Class Variance Authority)
-- Icons: Lucide React
-- Prohibit `@apply`; use CSS variables, `--spacing()` function, framework components
-- Group classes logically
+TypeScript Guidelines
 
-### UI Components (Shadcn UI)
+- Adopt DRY principles; avoid code duplication. Use type inference where possible.
+- Enforce strict type safety; usage of `any`, `as unknown`, or `@ts-ignore` strictly prohibited.
+- Types: Prefer `interface` for objects, `type` for unions/primitives.
+- Immutability: Use `.toSorted()`, `.toSpliced()`, `.with()`.
+- Nullish: Use `??`, `?.`.
+- Async: Always `async`/`await`. Handle errors with `try/catch`.
+- Generics: Use rigorous generics for reusable functions.
+- Const Assertions: Use `as const` for literal arrays/objects.
+- Utilize Arktype for runtime schemas, specifically for search params and API responses.
 
-Add components via CLI to `src/components/ui/`:
+Workflow Commands
 
-```bash
-pnpx shadcn add button dialog
-```
+- Add Dep: `pnpm add <pkg>`
+- Run: `pnpm <script>`
+- Lint: `pnpm lint` (Oxlint/ESLint)
+- Test: `pnpm test`
+- Build: `pnpm build`
 
-### Environment Variables
+Documentation (TSDoc)
 
-- Use ArkEnv for type-safe env var parsing; schema defined in `vite.config.ts`
-- Access: `import.meta.env.VITE_API_URL`
-- Never commit secrets, API keys, or credentials
+- Focus: Explain _why_ and _how_, not _what_.
+- Tags: `@remarks`, `@example`, `@see`.
+- No Redundancy: never restate types in comments.
 
-### Validation
+Security
 
-- Use ArkRegex for type-safe regular expressions
-- Validate all user input with Arktype
-- React Hook Form Resolver with Arktype
-
-## Testing (Vitest)
-
-- Use `vitest-browser-react` for browser-based component tests
-- Use `toMatchInlineSnapshot()` for snapshot testing
-
-```tsx
-import { render, renderHook } from 'vitest-browser-react'
-import { expect, test } from 'vitest'
-
-test('renders button', async () => {
-  const screen = await render(<Button>Click me</Button>)
-  await expect.element(screen.getByRole('button')).toBeVisible()
-  expect(screen.container).toMatchInlineSnapshot()
-})
-
-test('tests a custom hook', async () => {
-  const { result, act } = await renderHook(useCounter)
-
-  expect(result.current.count).toBe(0)
-
-  // Use act to trigger state updates
-  await act(() => result.current.increment())
-
-  expect(result.current.count).toBe(1)
-})
-```
-
-- Vitest Browser Mode uses Playwright as the provider. Do not use `@playwright/test` directly.
-- Use Playwright MCP for manual verification.
-
-### Mocking
-
-Prefer dependency injection over mocking. Only if necessary:
-
-- Use `vi` from `vitest` for all mocking utilities; `vi.mock()` is hoisted to the top
-- Modules: `vi.mock()` for full or partial mocks (via `importOriginal()`)
-- Functions/Spies: `vi.fn()`, `vi.spyOn(obj, 'method')`
-- Globals: `vi.stubGlobal('name', value)` / `vi.unstubAllGlobals()`
-- Env Variables: `vi.stubEnv('KEY', 'value')` / `vi.unstubAllEnvs()`
-- Dates/Timers: `vi.setSystemTime(date)` / `vi.useRealTimers()`
-- Automatic mocks: Implementation in `__mocks__/` directory next to module or at project root
-
-```tsx
-// Partial mock
-vi.mock('./api', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('./api')>()),
-  fetchUser: vi.fn().mockResolvedValue({ id: 1, name: 'Mock' }),
-}))
-
-// Module Exports
-import * as module from './module.ts'
-vi.mock('./module.ts', { spy: true })
-vi.mocked(module.method).mockImplementation(() => {
-  // ...
-})
-```
-
-### Storybook
-
-CSF Next format with factory functions:
-
-```tsx
-import preview from '../.storybook/preview'
-import { Button } from './Button'
-
-const meta = preview.meta({ component: Button })
-
-export const Primary = meta.story({
-  args: { primary: true },
-})
-```
-
-## TypeScript
-
-- Strict type safety; `any`, `as unknown`, `@ts-ignore` prohibited
-- Prefer `interface` for objects, `type` for unions/primitives
-- Use type inference where possible
-- Immutability: `.toSorted()`, `.toSpliced()`, `.with()`
-- Nullish: `??`, `?.`
-- Async: Always `async`/`await` with `try/catch`
-- `as const` for literal arrays/objects
-- Use Arktype for runtime schemas (search params, API responses)
-- Prefer spread & object destructuring: `tasks.filter(({ status }) => status !== 'done')` over `tasks.filter((t) => t.status !== 'done')`
-- Prefer arrow functions for setState callbacks: `store.setState(({ tasks }) => ({ tasks }))` over `store.setState((state) => ({ tasks: state.tasks }))`
-
-## Documentation (TSDoc)
-
-- Focus: Explain _why_ and _how_, not _what_
-- Tags: `@remarks`, `@example`, `@see`
-- Never restate types in comments
-
-## Workflow
-
-### Plan
-
-1. Clarify user intent
-2. Read docs with Context7
-3. Explore relevant code
-4. Create todos
-
-### Build
-
-1. Write self-documenting code; add comments for complex logic sparingly
-2. Handle errors with meaningful messages
-3. Write tests and run `pnpm test`
-4. Run `pnpm lint` - includes type checking; no separate `typecheck` / `tsc` task needed
-5. Verify changes with Playwright MCP if applicable
-
-### Review
-
-1. Prepare artifact/demo if applicable
-2. Review changes against todos & standards
-3. Commit with clear message
-4. Fix issues from pre-commit hooks
-5. Report completion with summary
+- Never commit secrets, API keys, or credentials to the repository.
+- Use environment variables for sensitive data.
+- Sanitize user input to prevent XSS attacks (use DOMPurify for HTML).
+- Validate all user input with Arktype schemas.
+- Set secure cookie flags: `httpOnly`, `secure`, `sameSite: 'strict'`.
+- Keep dependencies updated and audit regularly.
 
 ## Tech Stack
 
-| Category        | Technology                              |
-| --------------- | --------------------------------------- |
-| Framework       | React 19 + React Compiler + Vite 8 Beta |
-| Routing         | TanStack Router                         |
-| Data Fetching   | TanStack Query v5                       |
-| Client State    | Zustand                                 |
-| Styling         | Tailwind CSS 4                          |
-| UI Library      | Shadcn + Base UI                        |
-| Validation      | Arktype                                 |
-| i18n            | react-i18next                           |
-| Testing         | Vitest + Playwright                     |
-| Linting         | Oxlint                                  |
-| Formatting      | Oxfmt                                   |
-| Package Manager | pnpm                                    |
+| Category        | Technology          |
+| --------------- | ------------------- |
+| Framework       | React 19 + Vite 8   |
+| Routing         | TanStack Router     |
+| Data Fetching   | TanStack Query      |
+| Client State    | Zustand             |
+| Styling         | Tailwind CSS 4      |
+| UI Library      | Shadcn UI           |
+| Validation      | Arktype             |
+| Testing         | Vitest + Playwright |
+| Package Manager | pnpm                |
+
+## Workflow
+
+- Plan:
+  1. Clarify user intent
+  2. Look up docs with context7
+  3. Go through relevant code
+  4. Create detailed todos
+
+- Implement:
+  1. Write code adhering to standards
+  2. Run `pnpm lint` and `CI=1 pnpm test`
+  3. Verify changes with playwright MCP if applicable
+
+- Review:
+  1. Review code changes against todos
+  2. Self-review code for standards compliance
+  3. Address any issues found
+
+- Report:
+  1. Prepare artifact/demo if needed
+  2. Summarize changes made
+  3. Commit with clear message
+  4. Push and create PR if requested

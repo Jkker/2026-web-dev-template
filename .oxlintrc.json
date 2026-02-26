@@ -12,7 +12,20 @@
   },
   "rules": {
     "no-useless-rename": "warn",
+    "arrow-body-style": "warn",
     "no-var": "deny",
+    "no-shadow": "off",
+    "no-unused-vars": [
+      "warn",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
 
     "react/rules-of-hooks": "deny",
     "react/exhaustive-deps": "warn",
@@ -28,6 +41,14 @@
     "react/no-children-prop": "deny",
     "react/no-danger-with-children": "deny",
     "react/self-closing-comp": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/button-has-type": "warn",
+    "react/jsx-fragments": "warn",
+    "react/jsx-boolean-value": "warn",
+    "react/jsx-curly-brace-presence": [
+      "warn",
+      { "props": "never", "children": "never", "propElementValues": "always" }
+    ],
 
     "import/export": "deny",
     "import/no-duplicates": "warn",
@@ -41,9 +62,20 @@
     "import/no-named-as-default": "off",
     "import/no-unresolved": "off",
     "import/no-unassigned-import": "off",
-
-    "eslint/no-unused-vars": "deny",
-
+    "typescript/no-inferrable-types": "warn",
+    "typescript/no-import-type-side-effects": "error",
+    "typescript/array-type": ["warn", { "default": "array-simple" }],
+    "typescript/no-empty-object-type": ["error", { "allowInterfaces": "with-single-extends" }],
+    "typescript/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports",
+        "disallowTypeAnnotations": false
+      }
+    ],
+    "typescript/no-confusing-non-null-assertion": "error",
+    "typescript/no-extraneous-class": "error",
     "typescript/no-explicit-any": "deny",
     "typescript/no-unnecessary-type-constraint": "warn",
     "typescript/no-redundant-type-constituents": "warn",
@@ -55,7 +87,15 @@
     "typescript/triple-slash-reference": "deny",
     "typescript/no-misused-new": "deny",
     "typescript/no-this-alias": "warn",
+    "typescript/no-unsafe-argument": "deny",
+    "typescript/no-unsafe-assignment": "deny",
+    "typescript/no-unsafe-call": "deny",
+    "typescript/no-unsafe-member-access": "deny",
+    "typescript/no-unsafe-return": "deny",
     "typescript/no-unsafe-declaration-merging": "deny",
+    "typescript/no-unsafe-type-assertion": "off",
+    "typescript/prefer-function-type": "error",
+    "typescript/prefer-nullish-coalescing": "error",
     "typescript/await-thenable": "deny",
     "typescript/no-floating-promises": "deny",
     "typescript/no-for-in-array": "deny",
@@ -64,20 +104,9 @@
     "typescript/restrict-template-expressions": "warn",
     "typescript/unbound-method": "warn",
 
-    "no-unused-vars": [
-      "warn",
-      {
-        "args": "after-used",
-        "argsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_",
-        "destructuredArrayIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "ignoreRestSiblings": true
-      }
-    ],
-
     "unicorn/no-array-for-each": "warn",
     "unicorn/prefer-array-find": "warn",
+    "unicorn/require-post-message-target-origin": "off", // causes shared workers issues
 
     "promise/param-names": "deny",
     "promise/no-new-statics": "deny",
@@ -100,21 +129,77 @@
   },
   "overrides": [
     {
-      "files": ["**/*.{test,spec}.*"],
+      "files": ["**/*.{test,spec}.*", "**/tests/**/*.*", "docs/storybook/.storybook/*"],
       "plugins": ["vitest"],
       "rules": {
+        "unicorn/consistent-function-scoping": "off",
         "typescript/no-explicit-any": "off",
         "typescript/no-unsafe-argument": "off",
         "typescript/no-unsafe-assignment": "off",
         "typescript/no-unsafe-call": "off",
         "typescript/no-unsafe-member-access": "off",
-        "typescript/no-unsafe-return": "off"
+        "typescript/no-unsafe-return": "off",
+        "typescript/no-unsafe-type-assertion": "off",
+        "react/rules-of-hooks": "off"
       }
     },
     {
-      "files": ["**/components/ui/**/*.{ts,tsx}", "**/lib/**/*.{ts,tsx}"],
+      "files": ["**/components/ui/**/*.{ts,tsx}", "**/hooks/**/*.{ts,tsx}", "**/lib/**/*.{ts,tsx}"],
       "rules": {
         "react/only-export-components": "off"
+      }
+    },
+    // disable react hook errors for storybook files
+    {
+      "files": ["**/*.stories.*", "**/storybook/**/*.*"],
+      "rules": {
+        "react/rules-of-hooks": "off"
+      }
+    },
+    {
+      // React Compiler rules
+      "files": ["src/**/*.{ts,tsx}"],
+      "jsPlugins": [
+        {
+          "name": "react-hooks-js",
+          "specifier": "eslint-plugin-react-hooks"
+        }
+      ],
+      // https://github.com/TheAlexLichter/oxlint-react-compiler-rules/issues/1
+      // https://github.com/facebook/react/blob/main/compiler/packages/babel-plugin-react-compiler/src/CompilerError.ts
+      "rules": {
+        // Recommended rules (from LintRulePreset.Recommended)
+        "react-hooks-js/component-hook-factories": "error",
+        "react-hooks-js/config": "error",
+        "react-hooks-js/error-boundaries": "error",
+        "react-hooks-js/gating": "error",
+        "react-hooks-js/globals": "error",
+        "react-hooks-js/immutability": "error",
+        "react-hooks-js/incompatible-library": "off",
+        "react-hooks-js/preserve-manual-memoization": "error",
+        "react-hooks-js/purity": "error",
+        "react-hooks-js/refs": "error",
+        "react-hooks-js/set-state-in-effect": "error",
+        "react-hooks-js/set-state-in-render": "error",
+        "react-hooks-js/static-components": "error",
+        "react-hooks-js/unsupported-syntax": "error",
+        "react-hooks-js/use-memo": "error",
+
+        // Recommended-latest rules (from LintRulePreset.RecommendedLatest)
+        "react-hooks-js/void-use-memo": "error",
+
+        // Off rules (LintRulePreset.Off) - not enabled by default
+        "react-hooks-js/automatic-effect-dependencies": "error",
+        "react-hooks-js/capitalized-calls": "error",
+        "react-hooks-js/fbt": "off",
+        "react-hooks-js/fire": "off",
+        "react-hooks-js/hooks": "error",
+        "react-hooks-js/invariant": "error",
+        "react-hooks-js/memoized-effect-dependencies": "error",
+        "react-hooks-js/no-deriving-state-in-effects": "error",
+        "react-hooks-js/rule-suppression": "off",
+        "react-hooks-js/syntax": "error",
+        "react-hooks-js/todo": "off"
       }
     }
   ],
@@ -126,7 +211,6 @@
     "node_modules",
     ".turbo",
     ".tanstack",
-    "storybook-static",
     "**/routeTree.gen.ts"
   ]
 }

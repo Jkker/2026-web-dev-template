@@ -32,7 +32,7 @@ const Task = type({
 
 const TaskUpdate = Task.out.partial().omit('id', 'createdAt')
 
-type Tasks = (typeof Task.out.infer)[]
+type Tasks = Array<typeof Task.out.infer>
 
 interface TasksState {
   tasks: Tasks

@@ -1,25 +1,5 @@
 {
-  "[json]": {
-    "editor.defaultFormatter": "prettier.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "prettier.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "prettier.prettier-vscode"
-  },
-  "[tailwindcss]": {
-    "editor.defaultFormatter": "prettier.prettier-vscode"
-  },
-  "[toml]": {
-    "editor.defaultFormatter": "tombi-toml.tombi"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
+  "chat.useAgentSkills": true,
   "cSpell.enabled": true,
   "cSpell.words": ["arktype", "arkenv", "arkregex", "commitlint", "oxfmt", "oxlint", "tsgo"],
   "editor.codeActionsOnSave": {
@@ -49,6 +29,7 @@
     ".env": "*.env, .env.*, .envrc, env.d.ts",
     ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .lfsconfig, .mailmap, .git-blame*",
     ".npmrc": ".npmrc.*",
+    ".oxlintrc.json": ".oxfmtrc.json, .prettierrc.json, .dependency-cruiser.js, knip.json, lint-staged.config.js, .stylelintrc.json, .commitlintrc.json",
     "*.css": "$(capture).css.map, $(capture).*.css",
     "*.db": "${capture}.${extname}-*",
     "*.db3": "${capture}.${extname}-*",
@@ -63,16 +44,17 @@
     "*.tsx": "$(capture).ts, $(capture).*.ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture).css, $(capture).module.css, $(capture).less, $(capture).module.less, $(capture).module.less.d.ts, $(capture).scss, $(capture).module.scss, $(capture).module.scss.d.ts, $(capture).css.ts",
     "AGENTS.md": ".clinerules, .cursorrules, .replit.md, .windsurfrules, AGENT.md, CLAUDE.local.md, CLAUDE.md, GEMINI.md",
     "Dockerfile": "*.dockerfile, .devcontainer.*, .dockerignore, captain-definition, compose.*, docker-compose.*, dockerfile*",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock, pnpm-workspace.*",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock, pnpm-workspace.*, nx.json",
     "pyproject.toml": ".commitlint*, .cspell*, .dlint.json, .dprint.json*, .editorconfig, .flake8, .flowconfig, .isort.cfg, .jslint*, .lintstagedrc*, .ls-lint.yml, .markdownlint*, .oxfmtrc.json, .oxfmtrc.json.bak, .oxlintrc.json, .oxlintrc.json.bak, .pdm-python, .pdm.toml, .prettier*, .pylintrc, .python-version, .ruff.toml, .shellcheckrc, .stylelint*, .textlint*, .xo-config*, .yamllint*, MANIFEST.in, Pipfile, Pipfile.lock, alejandra.toml, biome.json*, commitlint*, cspell*, dangerfile*, dlint.json, dprint.json*, hatch.toml, lint-staged*, pdm.lock, phpcs.xml, poetry.lock, poetry.toml, prettier*, pyproject.toml, pyrightconfig.json, requirements*.in, requirements*.pip, requirements*.txt, ruff.toml, setup.cfg, setup.py, stylelint*, tox.ini, tslint*, uv.lock, uv.toml, xo.config.*",
     "tsconfig.json": "tsconfig*.tsbuildinfo, tsconfig.*.json",
     "vite.config.*": ".babelrc*, .codecov, .cssnanorc*, .envrc, .htmlnanorc*, .lighthouserc.*, .mocha*, .postcssrc*, .terserrc*, api-extractor.json, ava.config.*, babel.config.*, capacitor.config.*, content.config.*, contentlayer.config.*, cssnano.config.*, cypress.*, env.d.ts, formkit.config.*, formulate.config.*, histoire.config.*, htmlnanorc.*, i18n.config.*, ionic.config.*, jasmine.*, jest.config.*, jsconfig.*, karma*, lighthouserc.*, panda.config.*, playwright.config.*, postcss.config.*, puppeteer.config.*, react-router.config.*, rspack.config.*, sst.config.*, svgo.config.*, tailwind.config.*, tsconfig.*, tsdoc.*, uno.config.*, unocss.config.*, vitest.config.*, vuetify.config.*, webpack.config.*, windi.config.*"
   },
   "files.associations": {
-    "**/index.css": "tailwindcss"
+    "**/*.css": "tailwindcss"
   },
   "files.autoSave": "afterDelay",
   "files.exclude": {
+    ".vercel": true,
     "**/.DS_Store": true,
     "**/.eslintcache": true,
     "**/.git": true,
@@ -95,27 +77,10 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "github.copilot.chat.agent.autoFix": true,
+  "github.copilot.chat.codesearch.enabled": true,
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {
-      "text": "Use conventional commit format: type(scope): description."
-    },
-    {
-      "text": "Use imperative mood: 'Add feature' not 'Added feature'."
-    },
-    {
-      "text": "Keep subject line under 50 characters."
-    },
-    {
-      "text": "Use types: feat, fix, docs, style, refactor, perf, test, chore, ci."
-    },
-    {
-      "text": "Include scope when relevant (e.g., web, ui, auth)."
-    },
-    {
-      "text": "For additional details, use a well-structured body section."
-    },
-    {
-      "text": "Use bullet points (*) for clarity."
+      "text": "Generate a commit message. Strictly adheres to Conventional Commits.\n\nStructure\n<type>(<scope>): <subject>\n\n<body>\n\nRequirements\n\n* Type: feat, fix, docs, style, refactor, perf, test, chore.\n* Subject: Use imperative mood (e.g., \"Add\" not \"Added\"), start uncapitalized, do not end with a period, limit to 50 characters.\n* Body: Separate from subject with a blank line. Explain *what* and *why*, not *how*. Body's lines must not be longer than 100 characters.\n* Breaking Changes: Indicate with ! after type and BREAKING CHANGE: footer."
     }
   ],
   "github.copilot.chat.generateTests.codeLens": true,
@@ -137,7 +102,8 @@
   "js/ts.implicitProjectConfig.checkJs": true,
   "js/ts.implicitProjectConfig.experimentalDecorators": true,
   "js/ts.implicitProjectConfig.target": "ESNext",
-  "oxc.fixKind": "safe_fix_or_suggestion",
+  "mdx.server.enable": true,
+  "oxc.fixKind": "all",
   "oxc.path.oxfmt": "node_modules/.bin/oxfmt",
   "oxc.path.oxlint": "node_modules/.bin/oxlint",
   "oxc.path.tsgolint": "node_modules/.bin/tsgolint",
@@ -145,6 +111,7 @@
   "oxc.typeAware": true,
   "oxc.unusedDisableDirectives": "warn",
   "search.exclude": {
+    ".github/skills/**": true,
     "**/.venv": true,
     "**/*.code-search": true,
     "**/assets/fonts/*": true,
@@ -153,6 +120,7 @@
     "**/routeTree.gen.ts": true,
     "pnpm-lock.yaml": true
   },
+  "tailwindCSS.classFunctions": ["cn", "cva", "clsx"],
   "typescript.experimental.useTsgo": true,
   "typescript.implementationsCodeLens.showOnInterfaceMethods": true,
   "typescript.native-preview.tsdk": "node_modules/@typescript/native-preview",
@@ -162,11 +130,11 @@
     "dns",
     "^(node:)?os$" // prioritize ArkType's "type" for autoimports
   ],
-  "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.includePackageJsonAutoImports": "auto",
   "typescript.preferences.jsxAttributeCompletionStyle": "auto",
   "typescript.referencesCodeLens.enabled": true,
   "typescript.referencesCodeLens.showOnAllFunctions": true,
+  "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.updateImportsOnFileMove.enabled": "always"
 }

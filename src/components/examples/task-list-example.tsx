@@ -101,7 +101,7 @@ export function TaskListExample() {
             </DrawerContent>
           </Drawer>
         </div>
-        <div className="flex gap-2 mt-4">
+        <div className="mt-4 flex gap-2">
           {(['all', 'active', 'completed'] as const).map((filterType) => (
             <Button
               key={filterType}
@@ -123,27 +123,32 @@ export function TaskListExample() {
       <CardContent>
         <div className="space-y-2">
           {tasks.length === 0 ? (
-            <p className="text-muted-foreground text-center py-8">
+            <p className="py-8 text-center text-muted-foreground">
               No tasks yet. Create your first task!
             </p>
           ) : (
             tasks.map((task) => (
               <div
                 key={task.id}
-                className="flex items-start gap-3 p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50"
               >
                 <Button
                   variant="ghost"
                   size="icon"
                   className={`mt-0.5 ${task.status === 'done' ? 'text-green-500' : 'text-muted-foreground'}`}
                   onClick={() => setTaskStatus(task.id, task.status === 'done' ? 'todo' : 'done')}
+                  aria-label={
+                    task.status === 'done'
+                      ? `Mark "${task.title}" as todo`
+                      : `Mark "${task.title}" as done`
+                  }
                 >
                   <CheckIcon className="h-5 w-5" />
                 </Button>
-                <div className="flex-1 min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <p
-                      className={`font-medium ${task.status === 'done' ? 'line-through text-muted-foreground' : ''}`}
+                      className={`font-medium ${task.status === 'done' ? 'text-muted-foreground line-through' : ''}`}
                     >
                       {task.title}
                     </p>
@@ -164,15 +169,15 @@ export function TaskListExample() {
                     </Badge>
                   </div>
                   {task.description && (
-                    <p className="text-muted-foreground text-sm mt-1">{task.description}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{task.description}</p>
                   )}
                   {task.dueDate && task.status !== 'done' && (
-                    <div className="flex items-center gap-1 mt-2">
+                    <div className="mt-2 flex items-center gap-1">
                       <ClockIcon className="h-3 w-3 text-muted-foreground" />
                       <span
-                        className={`text-xs ${isOverdue(task.dueDate) ? 'text-destructive' : isDueSoon(task.dueDate) ? 'text-orange-500' : 'text-muted-foreground'}`}
+                        className={`text-xs ${isOverdue(task.dueDate.toString()) ? 'text-destructive' : isDueSoon(task.dueDate.toString()) ? 'text-orange-500' : 'text-muted-foreground'}`}
                       >
-                        {formatRelativeTime(task.dueDate)}
+                        {formatRelativeTime(task.dueDate.toString())}
                       </span>
                     </div>
                   )}
@@ -182,6 +187,7 @@ export function TaskListExample() {
                   size="icon"
                   className="text-destructive hover:text-destructive"
                   onClick={() => deleteTask(task.id)}
+                  aria-label={`Delete "${task.title}"`}
                 >
                   <Trash2Icon className="h-4 w-4" />
                 </Button>
@@ -190,7 +196,7 @@ export function TaskListExample() {
           )}
         </div>
         {stats.done > 0 && (
-          <div className="mt-4 pt-4 border-t">
+          <div className="mt-4 border-t pt-4">
             <Button variant="outline" size="sm" onClick={clearCompleted} className="w-full">
               <Trash2Icon className="mr-2 h-4 w-4" />
               Clear Completed ({stats.done})

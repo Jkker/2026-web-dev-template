@@ -2,15 +2,15 @@
   "servers": {
     "playwright": {
       "command": "pnpm",
-      "args": ["exec", "mcp-server-playwright"]
+      "args": ["dlx", "@playwright/mcp"]
     },
     "context7": {
       "command": "pnpm",
-      "args": ["exec", "context7-mcp"]
+      "args": ["dlx", "@upstash/context7-mcp"]
     },
     "shadcn": {
-      "command": "shadcn",
-      "args": ["mcp"]
+      "command": "pnpm",
+      "args": ["dlx", "shadcn", "mcp"]
     }
   }
 }

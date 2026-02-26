@@ -50,7 +50,7 @@ export function CopyToClipboardExample({
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-4">
-          <h3 className="font-semibold text-sm">Quick Copy with Toast Notification</h3>
+          <div className="text-sm font-semibold">Quick Copy with Toast Notification</div>
           <div className="rounded-lg border bg-card">
             {items.map((snippet) => (
               <div key={snippet.id} className="flex items-start gap-3 border-b p-4 last:border-b-0">
@@ -67,6 +67,7 @@ export function CopyToClipboardExample({
                       size="icon-sm"
                       onClick={() => copy(snippet.value)}
                       className="h-7 w-7"
+                      aria-label={`Copy ${snippet.label}`}
                     >
                       {isCopied ? (
                         <CheckIcon className="h-3.5 w-3.5 text-green-500" />
