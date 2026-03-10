@@ -1,6 +1,5 @@
+import preview from '#.storybook/preview'
 import { Badge } from '@/components/ui/badge'
-
-import preview from '../.storybook/preview'
 
 const meta = preview.meta({
   title: 'UI/Badge',

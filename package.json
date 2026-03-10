@@ -2,6 +2,15 @@
   "name": "react-2026-template",
   "private": true,
   "type": "module",
+  "imports": {
+    "#*": [
+      "./*",
+      "./*.ts",
+      "./*.tsx",
+      "./*.js",
+      "./*.jsx"
+    ]
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",

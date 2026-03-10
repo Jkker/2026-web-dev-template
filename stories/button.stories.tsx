@@ -1,6 +1,5 @@
+import preview from '#.storybook/preview'
 import { Button } from '@/components/ui/button'
-
-import preview from '../.storybook/preview'
 
 const meta = preview.meta({
   title: 'UI/Button',
