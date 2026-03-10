@@ -102,7 +102,8 @@
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "pnpm lint:fix",
-      "pnpm format"
+      "pnpm format",
+      "vitest related --run"
     ],
     "*.{json,md,css,html,yml,yaml}": [
       "pnpm format"
