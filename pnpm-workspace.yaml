@@ -1,5 +1,87 @@
-catalog:
-  vite: 8.0.0-beta.5
+catalogMode: prefer
+
+catalogs:
+  arktype:
+    '@arkenv/vite-plugin': ^0.0.32
+    arkenv: ^0.11.0
+    arkregex: ^0.0.5
+    arktype: ^2.2.0
+  build:
+    '@vitejs/plugin-react': ^5.1.4
+    babel-plugin-react-compiler: ^1.0.0
+    vite: 8.0.0-beta.18
+    zx: ^8.8.5
+  devtools:
+    '@playwright/mcp': ^0.0.68
+    '@tanstack/devtools-vite': ^0.5.3
+    '@tanstack/react-devtools': ^0.9.10
+    '@tanstack/react-form-devtools': ^0.2.17
+    '@tanstack/react-query-devtools': ^5.91.3
+    '@tanstack/react-router-devtools': ^1.166.7
+  i18n:
+    i18next: ^25.8.17
+    i18next-browser-languagedetector: ^8.2.1
+    i18next-http-backend: ^3.0.2
+    react-i18next: ^16.5.6
+  quality:
+    '@commitlint/cli': ^20.4.3
+    '@commitlint/config-conventional': ^20.4.3
+    eslint-plugin-react-hooks: ^7.0.1
+    knip: ^5.86.0
+    lint-staged: ^16.3.3
+    oxfmt: ^0.37.0
+    oxlint: ^1.52.0
+    oxlint-tsgolint: ^0.16.0
+    simple-git-hooks: ^2.13.1
+  react:
+    react: ^19.2.4
+    react-dom: ^19.2.4
+  runtime:
+    es-toolkit: ^1.45.1
+    temporal-polyfill: ^0.3.1
+    zustand: ^5.0.11
+    zustand-x: ^6.2.1
+  storybook:
+    '@storybook/addon-a11y': ^10.2.17
+    '@storybook/addon-designs': ^11.1.2
+    '@storybook/addon-docs': ^10.2.17
+    '@storybook/addon-themes': ^10.2.17
+    '@storybook/react-vite': ^10.2.17
+    msw-storybook-addon: ^2.0.6
+    storybook: ^10.2.17
+  styling:
+    '@fontsource-variable/noto-sans': ^5.2.10
+    '@tailwindcss/vite': ^4.2.1
+    class-variance-authority: ^0.7.1
+    clsx: ^2.1.1
+    tailwind-merge: ^3.5.0
+    tailwindcss: ^4.2.1
+    tw-animate-css: ^1.4.0
+  tanstack:
+    '@tanstack/react-form': ^1.28.4
+    '@tanstack/react-query': ^5.90.21
+    '@tanstack/react-router': ^1.166.7
+    '@tanstack/router-plugin': ^1.166.7
+  testing:
+    '@vitest/browser-playwright': ^4.0.18
+    '@vitest/coverage-v8': ^4.0.18
+    '@vitest/ui': ^4.0.18
+    playwright: ^1.58.2
+    vitest: ^4.0.18
+    vitest-browser-react: ^2.0.5
+  typescript:
+    '@total-typescript/ts-reset': ^0.6.1
+    '@types/node': ^25.4.0
+    '@types/react': ^19.2.14
+    '@types/react-dom': ^19.2.3
+    '@typescript/native-preview': 7.0.0-dev.20260310.1
+    typescript: ^5.9.3
+  ui:
+    '@base-ui/react': ^1.2.0
+    cmdk: ^1.1.1
+    lucide-react: ^0.577.0
+    shadcn: ^4.0.3
+    vaul: ^1.1.2
 
 onlyBuiltDependencies:
   - esbuild
@@ -7,4 +89,4 @@ onlyBuiltDependencies:
   - simple-git-hooks
 
 overrides:
-  vite: 'catalog:'
+  vite: catalog:build

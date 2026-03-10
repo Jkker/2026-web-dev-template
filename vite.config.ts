@@ -63,6 +63,7 @@ export default defineConfig(({ mode }) => {
       coverage: {
         provider: 'v8',
         reportsDirectory: './dist/coverage',
+        exclude: ['src/components/ui/*', 'routeTree.gen.ts'],
         reporter: CI
           ? ['text', 'cobertura', 'lcov', 'json-summary']
           : ['html', 'text', 'json-summary'],

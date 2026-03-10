@@ -22,8 +22,9 @@ type ImportMetaEnvAugmented = import('@arkenv/vite-plugin').ImportMetaEnvAugment
 // Only `VITE_*` prefixed variables will be included
 interface ImportMetaEnv extends ImportMetaEnvAugmented {}
 
-declare module 'csstype' {
-  interface Properties {
+import 'react'
+declare module 'react' {
+  interface CSSProperties {
     /**
      * Support for CSS custom properties
      *

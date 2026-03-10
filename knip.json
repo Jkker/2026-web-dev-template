@@ -4,12 +4,11 @@
     "interface": true,
     "type": true
   },
-  "entry": ["src/main.tsx"],
   "ignoreIssues": {
     "src/components/ui/**/*": ["exports", "files"],
     "scripts/**/*": ["exports", "files"]
   },
-  "ignoreDependencies": ["@playwright/mcp", "@types/*", "@upstash/*", "msw-storybook-addon", "zx"],
+  "ignoreDependencies": ["@playwright/mcp", "@types/*", "msw-storybook-addon", "zx"],
   "tailwind": {
     "entry": "src/index.css"
   }

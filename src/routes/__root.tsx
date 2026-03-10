@@ -13,16 +13,16 @@ interface RootRouteContext {
 export const Route = createRootRouteWithContext<RootRouteContext>()({
   component: () => (
     <SidebarProvider
-        style={{
-          '--sidebar-width': 'calc(var(--spacing) * 56)',
-          '--header-height': 'calc(var(--spacing) * 12)',
-        }}
-      >
-        <AppSidebar />
-        <SidebarInset className="min-h-screen">
-          <AppHeader />
-          <Outlet />
-        </SidebarInset>
-      </SidebarProvider>
+      style={{
+        '--sidebar-width': 'calc(var(--spacing) * 56)',
+        '--header-height': 'calc(var(--spacing) * 12)',
+      }}
+    >
+      <AppSidebar />
+      <SidebarInset className="min-h-screen">
+        <AppHeader />
+        <Outlet />
+      </SidebarInset>
+    </SidebarProvider>
   ),
 })

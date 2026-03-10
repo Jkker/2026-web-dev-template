@@ -83,11 +83,17 @@ TypeScript Guidelines
 
 Workflow Commands
 
-- Add Dep: `pnpm add <pkg>`
+- Add Dep: `pnpm add <pkg> --save-catalog-name <catalog>`
 - Run: `pnpm <script>`
 - Lint: `pnpm lint` (Oxlint/ESLint)
 - Test: `pnpm test`
 - Build: `pnpm build`
+
+pnpm Catalogs
+
+- Keep dependency versions in `pnpm-workspace.yaml` named catalogs. Do not add raw semver ranges to `package.json`.
+- Use `catalogMode: prefer` and save new deps into the right named catalog, for example `pnpm add zod --save-catalog-name runtime` or `pnpm add -D @storybook/test --save-catalog-name storybook`.
+- Reuse existing catalogs before creating new ones. Prefer category catalogs like `react`, `tanstack`, `storybook`, `testing`, `styling`, `quality`, `typescript`, `ui`, `build`, `devtools`.
 
 Documentation (TSDoc)
 

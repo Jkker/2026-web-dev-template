@@ -1,15 +1,29 @@
 # Mise configuration for Vite 8 Template
 # Manages Node.js and pnpm versions across all environments
 # See: https://mise.jdx.dev/
-
-[tools.node]
-version = "24" # Node.js 24 LTS
-postinstall = "corepack enable"
+[tools]
+pnpm = "latest"
 
 [settings]
 experimental = true # This must be enabled to make the hooks work
+auto_install = true # Automatically install missing tools when running hooks
+idiomatic_version_file_enable_tools = [
+  "node",
+  "python",
+] # Use tool versions from the idiomatic version file (e.g., .tool-versions) if available
 
 [env]
 # Add node_modules binaries to PATH
 _.path = ["{{config_root}}/node_modules/.bin"]
 STORYBOOK_DISABLE_TELEMETRY = true
+
+[shell_alias]
+pnpx = "pnpm dlx"
+ni = "pnpm install"
+nd = "pnpm run dev"
+nb = "pnpm run build"
+nt = "pnpm run test"
+nl = "pnpm run lint"
+nf = "pnpm run format"
+nn = "pnpm run lint:fix && pnpm run format && pnpm run test && pnpm run build"
+nnn = "pnpm run clean && pnpm install && pnpm run lint:fix && pnpm run format && pnpm run test && pnpm run build && pnpm run e2e"
