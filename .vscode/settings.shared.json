@@ -64,7 +64,8 @@
     "**/.tanstack": true,
     "**/.venv": true,
     "**/*.tsbuildinfo": true,
-    "**/Thumbs.db": true
+    "**/Thumbs.db": true,
+    "skills-lock.json": true
   },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true,
@@ -96,12 +97,25 @@
   },
   "github.copilot.nextEditSuggestions.enabled": true,
   "github.copilot.nextEditSuggestions.fixes": true,
-  "javascript.referencesCodeLens.enabled": true,
-  "javascript.referencesCodeLens.showOnAllFunctions": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.implementationsCodeLens.showOnInterfaceMethods": true,
   "js/ts.implicitProjectConfig.checkJs": true,
   "js/ts.implicitProjectConfig.experimentalDecorators": true,
   "js/ts.implicitProjectConfig.target": "ESNext",
+  "js/ts.native-preview.tsdk": "node_modules/@typescript/native-preview",
+  "js/ts.preferences.autoImportSpecifierExcludeRegexes": [
+    "node:test",
+    "node:dns",
+    "dns",
+    "^(node:)?os$" // prioritize ArkType's "type" for autoimports
+  ],
+  "js/ts.preferences.importModuleSpecifier": "relative",
+  "js/ts.preferences.includePackageJsonAutoImports": "auto",
+  "js/ts.preferences.jsxAttributeCompletionStyle": "auto",
+  "js/ts.referencesCodeLens.enabled": true,
+  "js/ts.referencesCodeLens.showOnAllFunctions": true,
+  "js/ts.tsdk": "./node_modules/typescript/lib",
+  "js/ts.updateImportsOnFileMove.enabled": "always",
   "mdx.server.enable": true,
   "oxc.fixKind": "all",
   "oxc.path.oxfmt": "node_modules/.bin/oxfmt",
@@ -120,21 +134,5 @@
     "**/routeTree.gen.ts": true,
     "pnpm-lock.yaml": true
   },
-  "tailwindCSS.classFunctions": ["cn", "cva", "clsx"],
-  "typescript.experimental.useTsgo": true,
-  "typescript.implementationsCodeLens.showOnInterfaceMethods": true,
-  "typescript.native-preview.tsdk": "node_modules/@typescript/native-preview",
-  "typescript.preferences.autoImportSpecifierExcludeRegexes": [
-    "node:test",
-    "node:dns",
-    "dns",
-    "^(node:)?os$" // prioritize ArkType's "type" for autoimports
-  ],
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.includePackageJsonAutoImports": "auto",
-  "typescript.preferences.jsxAttributeCompletionStyle": "auto",
-  "typescript.referencesCodeLens.enabled": true,
-  "typescript.referencesCodeLens.showOnAllFunctions": true,
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.updateImportsOnFileMove.enabled": "always"
+  "tailwindCSS.classFunctions": ["cn", "cva", "clsx"]
 }

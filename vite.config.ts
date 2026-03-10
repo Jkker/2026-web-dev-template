@@ -54,19 +54,18 @@ export default defineConfig(({ mode }) => {
               headless: true,
               provider: playwright(),
               instances: [{ browser: 'chromium' }],
+              trace: 'on-first-retry',
             },
           },
         },
       ],
+      silent: 'passed-only',
       reporters: CI ? ['default', 'junit'] : [],
-      outputFile: { junit: 'dist/junit-test-report.xml' },
+      outputFile: { junit: 'junit-test-report.xml' },
       coverage: {
-        provider: 'v8',
-        reportsDirectory: './dist/coverage',
+        reportsDirectory: './coverage',
         exclude: ['src/components/ui/*', 'routeTree.gen.ts'],
-        reporter: CI
-          ? ['text', 'cobertura', 'lcov', 'json-summary']
-          : ['html', 'text', 'json-summary'],
+        reporter: CI ? ['text', 'cobertura', 'lcov'] : ['html', 'text'],
       },
     },
     optimizeDeps: {
