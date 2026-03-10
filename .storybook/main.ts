@@ -1,11 +1,20 @@
 import { defineMain } from '@storybook/react-vite/node'
+import remarkGfm from 'remark-gfm'
 
 export default defineMain({
   stories: ['../stories/**/*.mdx', '../**/*.stories.{ts,tsx}'],
   addons: [
-    '@storybook/addon-docs',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
     '@storybook/addon-a11y',
-    '@storybook/addon-designs',
     '@storybook/addon-themes',
   ],
   framework: {
@@ -13,6 +22,10 @@ export default defineMain({
     options: {},
   },
   core: {
-    disableTelemetry: true, // 👈 Disables telemetry
+    disableTelemetry: true,
+    disableWhatsNewNotifications: true,
+  },
+  features: {
+    sidebarOnboardingChecklist: false,
   },
 })

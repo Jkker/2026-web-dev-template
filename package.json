@@ -48,9 +48,7 @@
     "@arkenv/vite-plugin": "catalog:arktype",
     "@commitlint/cli": "catalog:quality",
     "@commitlint/config-conventional": "catalog:quality",
-    "@playwright/mcp": "catalog:devtools",
     "@storybook/addon-a11y": "catalog:storybook",
-    "@storybook/addon-designs": "catalog:storybook",
     "@storybook/addon-docs": "catalog:storybook",
     "@storybook/addon-themes": "catalog:storybook",
     "@storybook/react-vite": "catalog:storybook",
@@ -78,6 +76,7 @@
     "oxlint": "catalog:quality",
     "oxlint-tsgolint": "catalog:quality",
     "playwright": "catalog:testing",
+    "remark-gfm": "catalog:storybook",
     "shadcn": "catalog:ui",
     "simple-git-hooks": "catalog:quality",
     "storybook": "catalog:storybook",
@@ -116,6 +115,5 @@
       "onFail": "error",
       "version": "^24"
     }
-  },
-  "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
+  }
 }

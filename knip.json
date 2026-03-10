@@ -8,7 +8,7 @@
     "src/components/ui/**/*": ["exports", "files"],
     "scripts/**/*": ["exports", "files"]
   },
-  "ignoreDependencies": ["@playwright/mcp", "@types/*", "msw-storybook-addon", "zx"],
+  "ignoreDependencies": ["@types/*", "zx", "eslint-plugin-react-hooks"],
   "tailwind": {
     "entry": "src/index.css"
   }
