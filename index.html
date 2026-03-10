@@ -8,6 +8,22 @@
       name="description"
       content="A modern web app built with React 19, Vite, TanStack Router, and Tailwind CSS."
     />
+    <script>
+      ;(() => {
+        const mediaQuery = '(prefers-color-scheme: dark)'
+        const storedTheme = window.localStorage.getItem('theme')
+        const resolvedTheme =
+          storedTheme === 'dark' || storedTheme === 'light'
+            ? storedTheme
+            : window.matchMedia(mediaQuery).matches
+              ? 'dark'
+              : 'light'
+
+        const root = document.documentElement
+        root.classList.remove('light', 'dark')
+        root.classList.add(resolvedTheme)
+      })()
+    </script>
     <title>Web Dev Template</title>
   </head>
   <body>

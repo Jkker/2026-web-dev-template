@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { ThemeProvider } from '@/contexts/theme'
+import '@/stores/theme'
 import { ReactI18nextProvider } from '@/lib/i18next'
 import { TanstackQueryProvider } from '@/lib/tanstack-query'
 import { TanstackRouterProvider } from '@/lib/tanstack-router'
@@ -18,12 +18,10 @@ createRoot(rootElement).render(
   <StrictMode>
     <ReactI18nextProvider>
       <TanstackQueryProvider>
-        <ThemeProvider>
-          <ToastProvider>
-            <TanstackRouterProvider />
-            <TanStackDevtools />
-          </ToastProvider>
-        </ThemeProvider>
+        <ToastProvider>
+          <TanstackRouterProvider />
+          <TanStackDevtools />
+        </ToastProvider>
       </TanstackQueryProvider>
     </ReactI18nextProvider>
   </StrictMode>,
